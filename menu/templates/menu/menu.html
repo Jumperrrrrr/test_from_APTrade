@@ -1,0 +1,78 @@
+{% load static %}
+
+<ul class="menu">
+    {% for menu_item in menu_items %}
+        <li class="menu-item {% if menu_item.is_active %}active{% endif %} level-{{ menu_item.level }}">
+            <a href="{{ menu_item.item.get_url }}" 
+               class="{% if menu_item.is_active %}active-link{% endif %}">
+                {{ menu_item.item.title }}
+            </a>
+            {% if menu_item.children %}
+                {% if menu_item.is_expanded %}
+                    <ul class="submenu">
+                        {% for child in menu_item.children %}
+                            {% include 'menu/menu_item.html' with menu_item=child %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<style>
+    .menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .menu-item {
+        margin: 5px 0;
+    }
+    
+    .menu-item a {
+        display: block;
+        padding: 8px 15px;
+        text-decoration: none;
+        color: #333;
+        border-left: 3px solid transparent;
+        transition: all 0.3s;
+    }
+    
+    .menu-item a:hover {
+        background-color: #f5f5f5;
+        border-left-color: #007bff;
+    }
+    
+    .menu-item.active > a,
+    .menu-item a.active-link {
+        background-color: #e7f3ff;
+        border-left-color: #007bff;
+        font-weight: bold;
+        color: #007bff;
+    }
+    
+    .submenu {
+        list-style: none;
+        padding-left: 20px;
+        margin: 5px 0;
+    }
+    
+    .level-0 > a {
+        font-weight: 500;
+    }
+    
+    .level-1 > a {
+        padding-left: 30px;
+    }
+    
+    .level-2 > a {
+        padding-left: 45px;
+    }
+    
+    .level-3 > a {
+        padding-left: 60px;
+    }
+</style>
+

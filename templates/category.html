@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Категория{% endblock %}
+{% block header %}Категория #{{ pk }}{% endblock %}
+
+{% block content %}
+<h2>Категория #{{ pk }}</h2>
+<p>Это страница категории с динамическим параметром.</p>
+<p>URL: /category/{{ pk }}/</p>
+{% endblock %}
+
